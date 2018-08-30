@@ -32,8 +32,10 @@ void ofxPSLevels::setup(int w, int h){
     width = w;
     height = h;
     // allocate and clear fbo
-    fbo.allocate(width, height);
-    begin(); ofClear(0); end();
+	fbo.allocate(width, height, GL_RGBA);
+    begin();
+	ofClear(0, 0.0);
+	end();
     // a shader handles all level adjustment
     success = shader.load("shaders/ps/levels.vert", "shaders/ps/levels.frag");
 }

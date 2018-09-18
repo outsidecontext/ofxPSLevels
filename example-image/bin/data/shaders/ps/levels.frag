@@ -1,3 +1,5 @@
+#version 120
+
 uniform sampler2DRect inputTexture;
 
 uniform float contrast;
@@ -10,6 +12,7 @@ uniform float maxInput;
 uniform float minOutput;
 uniform float maxOutput;
 
+varying vec2 texCoordVarying;
 
 /*
 ** Gamma correction
@@ -52,13 +55,13 @@ vec3 ContrastSaturationBrightness(vec3 color, float brt, float sat, float con)
 void main ()
 {
     // Sample the input pixel
-    vec4 colorIn = texture2DRect (inputTexture, gl_TexCoord [ 0 ].xy);
+    vec4 colorIn = texture2DRect (inputTexture, texCoordVarying);
     vec4 colorOut;
-    // csb first
-    colorOut.rgb = ContrastSaturationBrightness(colorIn.rgb, brightness, saturation, contrast);
     // levels
-    colorOut.rgb = LevelsControl(colorOut.rgb, minInput, gamma, maxInput, minOutput, maxOutput);
-    colorOut.a = 1.0;
+    colorOut.rgb = LevelsControl(colorIn.rgb, minInput, gamma, maxInput, minOutput, maxOutput);
+    // csb
+    colorOut.rgb = ContrastSaturationBrightness(colorOut.rgb, brightness, saturation, contrast);
+    colorOut.a = colorIn.a;
     // Save the result
     gl_FragColor = colorOut;
 }

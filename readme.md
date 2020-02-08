@@ -6,4 +6,4 @@ openFrameworks addon which enables Photoshop-style level adjustment for textures
 Check out the examples for usage. When integrating into a new project, copy the "shaders/ps" directory and its contents into your bin/data directory.
 
 ## Dependencies
--   Built against [oF 074](http://www.openframeworks.cc/download/)
+-   Built against [oF 0.11.0](http://www.openframeworks.cc/download/)
